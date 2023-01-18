@@ -116,6 +116,6 @@ class CashCalculator(Calculator):
                                                      currency_type)
 
     # Ты переопределил метод родительского класса Calculator,
-    # теперь он возвращает None, его нужно убрать отсюда.
+    # его нужно убрать отсюда.
     def get_week_stats(self):
         super().get_week_stats()
