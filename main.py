@@ -2,11 +2,13 @@ import datetime as dt
 
 
 class Record:
-    # Везде отсутсвуют докстринги, стоит их добавить.
+    # Везде отсутствуют докстринги, стоит их добавить.
     # Попробуй добавить тайпинг.
     def __init__(self, amount, comment, date=''):
         self.amount = amount
-        # Лучше раскрыть if/else, это сделает код более читаемым
+        # Размести выражение в две строки,
+        # поместив в одну строку всё до else включительно,
+        # это сделает код более читаемым
         self.date = (
             # Текущую дату можно получить используя dt.date.today()
             dt.datetime.now().date() if
@@ -42,6 +44,9 @@ class Calculator:
             # за пределы if
             #
             # Попробуй избавиться от and
+            #
+            # Когда используешь многострочную конструкцию в тернарном операторе,
+            # то лучше закрывающую скобку оставить в конце выражения.
             if (
                 (today - record.date).days < 7 and
                 (today - record.date).days >= 0
@@ -54,7 +59,7 @@ class Calculator:
 class CaloriesCalculator(Calculator):
     # Оформи комментарий в соответствии с Docstring Conventions
     def get_calories_remained(self):  # Получает остаток калорий на сегодня
-        # Переменным лучше давать понятные имена.
+        # Переменным лучше давать понятные имена, исправь это.
         x = self.limit - self.get_today_stats()
         if x > 0:
             # Перепеши эту строку без использования бэкслеша.
@@ -78,6 +83,8 @@ class CashCalculator(Calculator):
         currency_type = currency
         cash_remained = self.limit - self.get_today_stats()
         # Если валюта не известна то этот блок не выполнится.
+        #
+        # Попробуешь сделать валидацию с использованием словаря !
         if currency == 'usd':
             cash_remained /= USD_RATE
             currency_type = 'USD'
@@ -88,7 +95,8 @@ class CashCalculator(Calculator):
             # Нули после точки не имеют эффекта
             cash_remained == 1.00
             currency_type = 'руб'
-        # Лучше разбить блоки, так их будет легче читать.
+        # Лучше разбить блоки схожие по задачам, так их будет легче читать.
+        # (например расчет, валидация и возврат результата)
         if cash_remained > 0:
             # В Я.Практикуме есть требование - не выполнять
             # никаких операций внутри f-string.
@@ -107,6 +115,7 @@ class CashCalculator(Calculator):
                    ' твой долг - {0:.2f} {1}'.format(-cash_remained,
                                                      currency_type)
 
-    # Этот метод наследуется из класса Calculator, его нужно убрать отсюда
+    # Ты переопределил метод родительского класса Calculator,
+    # теперь он возвращает None, его нужно убрать отсюда.
     def get_week_stats(self):
         super().get_week_stats()
